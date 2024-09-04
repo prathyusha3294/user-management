@@ -1,6 +1,7 @@
 from django.urls import path,include
 from rest_framework import routers
 from organization.views import *
+from . import views
 
 app_name = "organization"
 
@@ -12,5 +13,7 @@ usersigin_router.register('usersignin', UserSignInViewSet, basename = 'usersigni
 
 urlpatterns = [
     path('',include(user_router.urls)),
-    path('',include(usersigin_router.urls))
+    path('',include(usersigin_router.urls)),
+    path('login/', views.UserLogin, name='UserLogin'),
+    path('signup/',views.Signup, name='Signup')
 ]

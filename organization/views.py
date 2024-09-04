@@ -7,7 +7,19 @@ from .serializers import UserSignUpSerializer,UserSignInSerializer
 from django.contrib.auth.hashers import make_password, check_password
 from rest_framework.authtoken.models import Token
 
-class UserSignUpViewSet(viewsets.GenericViewSet,mixins.ListModelMixin,mixins.CreateModelMixin,mixins.UpdateModelMixin,mixins.RetrieveModelMixin,mixins.DestroyModelMixin):
+
+def UserLogin(request):
+    if request.method == 'POST':
+        # Authentication logic here
+        pass
+    return render(request, 'login.html')
+
+def Signup(request):
+    if request.method == 'POST':
+        # Authentication logic here
+        pass
+    return render(request, 'signup.html')
+class UserSignUpViewSet(viewsets.GenericViewSet,mixins.CreateModelMixin,mixins.UpdateModelMixin,mixins.RetrieveModelMixin,mixins.DestroyModelMixin):
     permission_classes = [AllowAny]
     queryset = User.objects.all()
     serializer_class = UserSignUpSerializer
@@ -48,7 +60,7 @@ class UserSignInViewSet(viewsets.GenericViewSet,mixins.ListModelMixin,mixins.Cre
     permission_classes = [AllowAny]
     queryset = User.objects.all()
     serializer_class = UserSignInSerializer
-    
+     
     def create(self, request):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -71,3 +83,7 @@ class UserSignInViewSet(viewsets.GenericViewSet,mixins.ListModelMixin,mixins.Cre
             }, status=status.HTTP_200_OK)
         else:
             return Response({"error": "Incorrect password."}, status=status.HTTP_400_BAD_REQUEST)
+        
+# class ForgetPasswordViewSet(viewsets.GenericViewSet,mixins.ListModelMixin,mixins.CreateModelMixin):
+#     permission_classes = [AllowAny]
+#     serializer_class = Forget
