@@ -6,20 +6,15 @@ from .models import *
 from .serializers import UserSignUpSerializer,UserSignInSerializer
 from django.contrib.auth.hashers import make_password, check_password
 from rest_framework.authtoken.models import Token
+from django.shortcuts import redirect
 
+def UserSignUp(request):
+    return render(request, 'users/signup.html')
 
 def UserLogin(request):
-    if request.method == 'POST':
-        # Authentication logic here
-        pass
-    return render(request, 'login.html')
+    return render(request, 'users/login.html')
 
-def Signup(request):
-    if request.method == 'POST':
-        # Authentication logic here
-        pass
-    return render(request, 'signup.html')
-class UserSignUpViewSet(viewsets.GenericViewSet,mixins.CreateModelMixin,mixins.UpdateModelMixin,mixins.RetrieveModelMixin,mixins.DestroyModelMixin):
+class UserSignUpViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
     permission_classes = [AllowAny]
     queryset = User.objects.all()
     serializer_class = UserSignUpSerializer
@@ -54,9 +49,9 @@ class UserSignUpViewSet(viewsets.GenericViewSet,mixins.CreateModelMixin,mixins.U
         user.save()
         return Response({"message": "User Created Successfully"}, status=status.HTTP_201_CREATED)
 
+
         
-         
-class UserSignInViewSet(viewsets.GenericViewSet,mixins.ListModelMixin,mixins.CreateModelMixin):
+class UserSignInViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
     permission_classes = [AllowAny]
     queryset = User.objects.all()
     serializer_class = UserSignInSerializer
@@ -87,3 +82,7 @@ class UserSignInViewSet(viewsets.GenericViewSet,mixins.ListModelMixin,mixins.Cre
 # class ForgetPasswordViewSet(viewsets.GenericViewSet,mixins.ListModelMixin,mixins.CreateModelMixin):
 #     permission_classes = [AllowAny]
 #     serializer_class = Forget
+
+# def UserLogin(request):
+#     return render(request, 'login.html')
+

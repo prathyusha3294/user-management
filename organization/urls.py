@@ -6,7 +6,7 @@ from . import views
 app_name = "organization"
 
 user_router = routers.SimpleRouter()
-user_router.register('usersignup',UserSignUpViewSet, basename = 'user')
+user_router.register('master/usersignup',UserSignUpViewSet, basename = 'user')
 
 usersigin_router = routers.SimpleRouter()
 usersigin_router.register('usersignin', UserSignInViewSet, basename = 'usersignin')
@@ -14,6 +14,5 @@ usersigin_router.register('usersignin', UserSignInViewSet, basename = 'usersigni
 urlpatterns = [
     path('',include(user_router.urls)),
     path('',include(usersigin_router.urls)),
-    path('login/', views.UserLogin, name='UserLogin'),
-    path('signup/',views.Signup, name='Signup')
 ]
+
